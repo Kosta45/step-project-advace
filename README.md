@@ -156,6 +156,7 @@ step-project-card/
 
 Яку роблоту будемо робити:
 **Андрій**
+структура папок
 index.css
 api.jss
 modal/
