@@ -109,6 +109,9 @@ pasword: qwertyuiop
 TOKEN: e31dbbe7-3d50-4e34-a315-4bfd6cb2081e
 API_URL: https://ajax.test-danit.com/api/v2/cards
 
+**Костя**
+TOKEN: f47b5fc8-2b5e-493d-b360-25331eb5bada
+
 
 
 структура папок
