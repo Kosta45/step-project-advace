@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEP-PROJECT-CARDS</title>
+    <!-- основний css -->
+    <link rel="stylesheet" href="./css/index.css">
+    <!-- скинути стандартні css -->
+    <link rel="stylesheet" href="./css/base/reset.css">
+    <!-- шрифти -->
+    <link rel="stylesheet" href="./css/base/fons.css">
+</head>
+
+<body>
+    <header class="header">
+        <a href="#" class="logo">
+            <img src="./img/logo.jpg" alt="Логотип" width="60" height="60">
+        </a>
+
+        <section class="filters">
+            <form>
+                <input type="search" placeholder="Пошук за заголовком/вмістом">
+                <select>
+                    <option>Статус</option>
+                    <option value="open">Open</option>
+                    <option value="done">Done</option>
+                </select>
+                <select>
+                    <option>Лікарі</option>
+                    <option value="cardiologist">Кардіолог</option>
+                    <option value="dentist">Стоматолог</option>
+                    <option value="therapist">Терапевт</option>
+                </select>
+                <select>
+                    <option>Терміновість</option>
+                    <option value="high">High</option>
+                    <option value="normal">Normal</option>
+                    <option value="low">Low</option>
+                </select>
+                <button type="submit">Фільтрувати</button>
+            </form>
+        </section>
+        <button class="btn btn-login">Вхід</button>
+
+    </header>
+
+
+
+    <main id="cards-container">
+
+        <section class="card"></section>
+        <section class="card">
+            <button class="card-close">✖</button>
+            <h2>Іванов Іван</h2>
+            <p>Лікар: Кардіолог</p>
+            <p>Статус: Open</p>
+            <p>Терміновість: Normal</p>
+            <button class="btn-show">Показати більше</button>
+            <button class="btn-edit">Редагувати</button>
+            <div class="card-details hidden">
+                <p>Мета: консультація</p>
+                <p>Вік: 45</p>
+                <p>Тиск: 120/80</p>
+            </div>
+        </section>
+
+        <section class="card">
+            <button class="card-close">✖</button>
+            <h2>Іванов Іван</h2>
+            <p>Лікар: Кардіолог</p>
+            <p>Статус: Open</p>
+            <p>Терміновість: Normal</p>
+            <button class="btn-show">Показати більше</button>
+            <button class="btn-edit">Редагувати</button>
+            <div class="card-details hidden">
+                <p>Мета: консультація</p>
+                <p>Вік: 45</p>
+                <p>Тиск: 120/80</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- иодельне вікно для входу на сайт -->
+    <div class="modal hidden" id="modal-login">
+        <div class="modal-content">
+            <button class="modal-close">✖</button>
+            <h2>Вхід</h2>
+            <form>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Пароль" required>
+                <button type="submit">Увійти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- модельне вікно для створення візиту -->
+    <div class="modal hidden" id="modal-visit">
+        <div class="modal-content">
+            <button class="modal-close">✖</button>
+            <h2>Створити візит</h2>
+            <form>
+                <select required>
+                    <option value="firstOption">Оберіть лікаря</option>
+                    <option value="cardio">Кардіолог</option>
+                    <option value="dentist">Стоматолог</option>
+                    <option value="therapist">Терапевт</option>
+                </select>
+                <input type="text" placeholder="Мета візиту" required>
+                <textarea placeholder="Короткий опис"></textarea>
+                <select required>
+                    <option value="firstOption">Терміновість</option>
+                    <option value="normal">Звичайна</option>
+                    <option value="priority">Пріоритетна</option>
+                    <option value="urgent">Невідкладна</option>
+                </select>
+                <input type="text" placeholder="ПІБ" required>
+                <button type="submit">Створити</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- модельне вікно для виходу при натиску на логотип -->
+    <div class="modal hidden" id="modal-out-account">
+        <div class="modal-content">
+            <button class="modal-close">✖</button>
+            <h2>Ви впевнені, що хочете вийти з акаунта?</h2>
+            <div class="modal-actions">
+                <button type="button" class="btn-logout-yes">Так</button>
+                <button type="button" class="btn-logout-no">Ні</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- модельне вікно для редагування -->
+    <div class="modal hidden" id="modal-edit">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Закрити">✖</button>
+            <h2>Редагувати візит лікаря: ${лікар поточний}</h2>
+            <form>
+                <p>Лікар: ${Лікар який був вказаний }</p>
+                <p>Статус: ${Статус який був вказаний}</p>
+                <p>Терміновість: ${Терміновість: який був вказаний}</p>
+                <p>Мета: ${Мета: який був вказаний}</p>
+                <p>Вік: ${Вік: який був вказаний}</p>
+                <p>Тиск: ${Тиск: який був вказаний}</p>
+                <p>Вага: ${Вага: який був вказаний}</p>
+                <button type="submit"> Відредагувати</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script type="module" src="./index.js"></script>
+
+
+</body>
+
+</html> 
