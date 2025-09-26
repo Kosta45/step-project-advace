@@ -41,13 +41,16 @@ loginBtn.addEventListener("click", () => {
 });
 
 // отримання карток
+// ---- Завантаження карток ----
 async function loadCards() {
     try {
         const cards = await getCards();
+
+        // очищаємо контейнер перед рендером
         cardsContainer.innerHTML = "";
 
-        if (!cards.length) {
-            cardsContainer.innerHTML = `<p class="no-items">No items have been added...</p>`;
+        if (!cards || cards.length === 0) {
+            cardsContainer.innerHTML = `<p class="no-items">Поки що немає жодної картки...</p>`;
             return;
         }
 
@@ -56,9 +59,11 @@ async function loadCards() {
         });
     } catch (error) {
         console.error(`Помилка при отриманні карток: ${error}`);
+        window.loadCards = cardsContainer.innerHTML = `<p class="no-items error">Не вдалося завантажити картки</p>`;
     }
 }
 
 window.loadCards = loadCards;
+
 
 initLoginState();

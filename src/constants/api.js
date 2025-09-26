@@ -1,5 +1,4 @@
-// URL
-export const API_URL = "https://ajax.test-danit.com/api/v2";
+import { API_URL } from "./constants.js"
 
 // ЛОГІН ТА ПАРОЛЬ
 export async function login(email, password) {

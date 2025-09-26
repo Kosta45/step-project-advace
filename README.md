@@ -107,16 +107,18 @@
 login: ttotti199@gmail.com
 pasword: qwertyuiop
 TOKEN: e31dbbe7-3d50-4e34-a315-4bfd6cb2081e
-API_URL: https://ajax.test-danit.com/api/v2/cards
 
 **Костя**
+login: 
+pasword: 
 TOKEN: f47b5fc8-2b5e-493d-b360-25331eb5bada
 
+**Ігорь**
+login: 
+pasword: 
+TOKEN: 
 
-
-структура папок
-
-
+**СТРУКТУРА ПАПОК**
 step-project-card/
 │── README.md --> **нотатки**
 ├── public/
@@ -126,68 +128,63 @@ step-project-card/
 │   ├── img/
 |   │   ├── logo.png --> **всі картинки**
 |   │   └── favicon.ico --> **якщо буде  favicon**
-|   |
-|   └── css/
-|       ├── base/
-|       |   ├── fons.css **шрифти**
-|       │   └── reset.css --> **обнулення стилів**
-|       │
-|       └── index.css --> **основний css**
+│   │ 
+│   └── style/
+│       ├── index.css --> **основний css**
+│       ├── fons.css -->  **шрифти**
+│       ├── normalize.css
+│       └── reset.css --> **обнулення стилів**
 │
 └── src/
     ├── constants/
-    │    ├── api.js --> **робота з URL**
-    │    └── config.js 
+    │    ├── api.js --> **робота API POST DELETE PATCH ЛОГІН ТА ПАРОЛЬ**
+    │    └── constants.js --> **URL**
     │
     ├── components/ --> **вся логіка js**
     │    ├── modal/ 
-    │    |    ├── index.js --> **тут будуть імпортуватись всі модельні вікна та експортуватись в основний файл**
+    │    |    ├── index.js --> **тут будуть імпортуватись всі модельні вікна та експортуватись в основний файл modal/index.js**
     │    |    ├── Modal.js
-    │    |    ├── ModalCardiologist.js
     │    |    ├── ModalCreateVisit.js
-    │    |    ├── ModalDantist.js
-    │    |    ├── ModalExit.js
-    │    |    ├── ModalTherapert.js
-    │    │    └── ModalVisit.js
+    │    |    ├── ModalLogin.js
+    │    |    └── ModalExit.js
     │    │ 
-    │    ├── Card.js
-    │    └── visits.js
+    │    └── Card.js --> **картка яку ми отримуємо**
+    │
+    └── search/
+    │    └── search.js --> **фільтри**
+    │
     │
     └── utils/
          ├── helpers.js --> **тут будуть функції які можна використовувати декілька разів**
          └── storage.js --> **тут буде токени та localStorage**
 
 Яку роблоту будемо робити:
+
 **Андрій**
 структура папок
-index.css
-api.jss
-modal/
+api.js
+modal/index.js
 helpers.js 50/50
 Drag&Drop
-якщо обрано High то щоб картка пульсувала зробити інтерактивно
-
+Card.js
 
 **Костя**
 helpers.js 50/50
-gitlab || gitHab
-фільтри
-reset.css --> **обнулення стилів** --> normalize.....
+gitlab || **gitHab**
+search/search.js
+style/index.css
+style/fons.css
+style/normalize.css
+style/reset.css
+якщо обрано High то щоб картка пульсувала зробити інтерактивно
+img/logo.png
+img/favicon.ico
+
+
+**Ігорь**
+??
+??
 
 Що добавили в степ, але не було в тз:
 1. вихід з акаунта при натиску на logo
 2. Добавити фільтри по лікарям
-
-
-
-
-питання на уроці:
-1. картки краще створювати як div section або article
-2. в нас в конспекті **Зміна даних картки**  *method: 'PUT'*, але цей метод оновлює і перетирає всі дані, не краще використовувати *PATCH* щоб частково оновити??
-3. я пишу select і там і в першом опшинсі потрібно взагалі писати value??
-<select required>
-      <option value="">Терміновіть</option>
-      <option value="normal">Звичайна</option>
-      <option value="priority">Пріорітетна</option>
-      <option value="urgent">НеВідкладна</option>
-</select>

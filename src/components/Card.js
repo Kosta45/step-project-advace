@@ -26,7 +26,7 @@ class Card {
             </div>
         `;
 
-        // тут при натиску на кнопку показати більше щоб показувались деталі
+        // тут при натиску на кнопку показати деталі
         const show = card.querySelector(`.btn-show`);
         const detail = card.querySelector(`.card-details`);
 
@@ -41,6 +41,7 @@ class Card {
         const close = card.querySelector(`.card-close`);
         close.addEventListener(`click`, async () => {
             await deleteCard(this.data.id);
+            await loadCards(); 
             card.remove();
         })
 
