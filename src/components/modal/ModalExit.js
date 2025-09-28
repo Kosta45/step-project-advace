@@ -25,10 +25,13 @@ export default class ModalExit extends Modal {
 
         if (yes) {
             yes.addEventListener("click", () => {
+                const loginBtn = document.querySelector(".btn-login");
                 // тут робимо реальний логаут: видалити токен, оновити UI і т.д.
                 localStorage.removeItem("token");
                 console.log("Вийшли з акаунта");
                 this.close();
+                loginBtn.classList.remove(`create-visit`)
+                loginBtn.textContent = `Вхід`
                 // наприклад, можна перезавантажити сторінку або оновити кнопку
                 // location.reload();
             });

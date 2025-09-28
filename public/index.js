@@ -9,6 +9,9 @@ const exitModal = new Modals.ModalExit();
 const loginModal = new Modals.ModalLogin();
 const createVisitModal = new Modals.ModalCreateVisit();
 
+
+
+
 // токена при завантаженні
 function initLoginState() {
     const token = localStorage.getItem("token");
