@@ -55,18 +55,11 @@ export default class ModalCreateVisit extends Modal {
 
     const form = this.modal.querySelector(".visit-form");
     const cancelBtn = this.modal.querySelector(".btn-cancel-visit");
-    const form = this.modal.querySelector(".visit-form");
-    const cancelBtn = this.modal.querySelector(".btn-cancel-visit");
 
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-    if (form) {
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
 
-        const formData = new FormData(form);
-        const visit = Object.fromEntries(formData.entries());
         const formData = new FormData(form);
         const visit = Object.fromEntries(formData.entries());
 
@@ -80,13 +73,6 @@ export default class ModalCreateVisit extends Modal {
           // 🔹 Можна одразу оновити список візитів у UI
           // renderCard(newVisit);
 
-          this.close();
-        } catch (err) {
-          console.error("❌ Помилка створення візиту:", err.message);
-          alert("Не вдалося створити візит. Перевірте дані.");
-        }
-      });
-    }
           this.close();
         } catch (err) {
           console.error("❌ Помилка створення візиту:", err.message);
