@@ -54,9 +54,9 @@ async function loadCards() {
       return;
     }
 
-    const cardsSection = document.createElement("section");
+    const cardsSection = document.createElement("div");
     cardsSection.classList.add(
-      "cards-sections",
+      "cards-section",
       "fixed-grid",
       "has-3-cols-desktop",
       "has-2-cols-mobile"
