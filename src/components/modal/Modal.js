@@ -16,7 +16,7 @@ class Modal {
 
     this.modal.innerHTML = `
         <div class="modal-content">
-          <button class="modal-close button is-danger is-light" aria-label="Закрити">✖</button>
+          
           ${this.title ? `<h2 class="subtitle is-5">${this.title}</h2>` : ""}
           ${this.content}
         </div>
