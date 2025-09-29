@@ -1,6 +1,6 @@
-import { getCards } from "../src/constants/api.js";
-import * as Modals from "../src/components/modal/index.js";
-import Card from "../src/components/Card.js";
+import { getCards } from "./constants/api.js";
+import * as Modals from "./components/modal/index.js";
+import Card from "./components/Card.js";
 
 const loginBtn = document.querySelector(".btn-login");
 const cardsContainer = document.querySelector("#cards-container");
@@ -41,34 +41,18 @@ loginBtn.addEventListener("click", () => {
 });
 
 // отримання карток
-// ---- Завантаження карток ----
 async function loadCards() {
   try {
     const cards = await getCards();
-
-    // очищаємо контейнер перед рендером
     cardsContainer.innerHTML = "";
 
-    if (!cards || cards.length === 0) {
-      cardsContainer.innerHTML = `<p class="no-items">Поки що немає жодної картки...</p>`;
+    if (!cards.length) {
+      cardsContainer.innerHTML = `<p class="no-items">No items have been added...</p>`;
       return;
     }
 
-    const cardsSection = document.createElement("section");
-    cardsSection.classList.add(
-      "cards-sections",
-      "fixed-grid",
-      "has-3-cols-desktop",
-      "has-2-cols-mobile"
-    );
-    cardsContainer.append(cardsSection);
-
-    const cardList = document.createElement("ul");
-    cardList.classList.add("cards-section-list", "grid");
-    cardsSection.append(cardList);
-
     cards.forEach((card) => {
-      new Card(card, cardList).render();
+      new Card(card, cardsContainer).render();
     });
   } catch (error) {
     console.error(`Помилка при отриманні карток: ${error}`);

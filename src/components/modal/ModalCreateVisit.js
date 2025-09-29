@@ -1,6 +1,5 @@
-import { Modal } from "./index.js"
+import { Modal } from "./index.js";
 import { createCard } from "../../../src/constants/api.js";
-
 
 export default class ModalCreateVisit extends Modal {
   constructor() {
@@ -8,42 +7,46 @@ export default class ModalCreateVisit extends Modal {
       id: "create-visit",
       title: "Створення візиту",
       content: `
-                <form class="visit-form">
-                  <div class="form-group">
-                    <label for="visit-doctor">Лікар</label>
-                    <select id="visit-doctor" name="doctor" required>
-                      <option value="">Оберіть лікаря</option>
-                      <option value="cardiologist">Кардіолог</option>
-                      <option value="dentist">Стоматолог</option>
-                      <option value="therapist">Терапевт</option>
-                    </select>
-                  </div>
+        <form class="visit-form ">
+          <div class="form-group">
+            <label for="visit-doctor">Лікар:</label>
+            <div class="select-wrapper select is-link"> 
+            <select id="visit-doctor" name="doctor" required class="">
+              <option value="">Оберіть лікаря</option>
+              <option value="cardiologist">Кардіолог</option>
+              <option value="dentist">Стоматолог</option>
+              <option value="therapist">Терапевт</option>
+            </select>
+            </div>
+          </div>
 
-                  <div class="form-group">
-                    <label for="visit-purpose">Мета візиту</label>
-                    <input type="text" id="visit-purpose" name="purpose" required />
-                  </div>
+          <div class="form-group">
+            <label for="visit-purpose">Мета візиту:</label>
+            <input class="input is-link" type="text" id="visit-purpose" name="purpose" required />
+          </div>
 
-                  <div class="form-group">
-                    <label for="visit-description">Короткий опис</label>
-                    <textarea id="visit-description" name="description"></textarea>
-                  </div>
+          <div class="form-group">
+            <label for="visit-description">Короткий опис:</label>
+            <textarea class="textarea" id="visit-description" name="description"></textarea>
+          </div>
 
-                  <div class="form-group">
-                    <label for="visit-urgency">Терміновість</label>
-                    <select id="visit-urgency" name="urgency" required>
-                      <option value="low">Низька</option>
-                      <option value="normal">Звичайна</option>
-                      <option value="high">Висока</option>
-                    </select>
-                  </div>
+          <div class="form-group">
+            <label for="visit-urgency">Терміновість:</label>
+            <div class="select-wrapper select is-link"> 
+            <select id="visit-urgency" name="urgency" required>
+              <option value="low">Низька</option>
+              <option value="normal">Звичайна</option>
+              <option value="high">Висока</option>
+            </select>
+                </div>
+          </div>
 
-                  <div class="modal-actions">
-                    <button type="submit" class="btn-create-visit">Створити</button>
-                    <button type="button" class="btn-cancel-visit">Скасувати</button>
-                  </div>
-                </form>
-      `
+          <div class="modal-actions">
+            <button type="submit" class="btn-create-visit button is-primary">Створити</button>
+            <button type="button" class="btn-cancel-visit button is-danger">Скасувати</button>
+          </div>
+        </form>
+      `,
     });
   }
 
@@ -52,11 +55,18 @@ export default class ModalCreateVisit extends Modal {
 
     const form = this.modal.querySelector(".visit-form");
     const cancelBtn = this.modal.querySelector(".btn-cancel-visit");
+    const form = this.modal.querySelector(".visit-form");
+    const cancelBtn = this.modal.querySelector(".btn-cancel-visit");
 
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
+        const formData = new FormData(form);
+        const visit = Object.fromEntries(formData.entries());
         const formData = new FormData(form);
         const visit = Object.fromEntries(formData.entries());
 
@@ -67,7 +77,16 @@ export default class ModalCreateVisit extends Modal {
 
           // 🔹 Можна одразу оновити список візитів у UI
           // renderCard(newVisit);
+          // 🔹 Можна одразу оновити список візитів у UI
+          // renderCard(newVisit);
 
+          this.close();
+        } catch (err) {
+          console.error("❌ Помилка створення візиту:", err.message);
+          alert("Не вдалося створити візит. Перевірте дані.");
+        }
+      });
+    }
           this.close();
         } catch (err) {
           console.error("❌ Помилка створення візиту:", err.message);
@@ -80,5 +99,4 @@ export default class ModalCreateVisit extends Modal {
       cancelBtn.addEventListener("click", () => this.close());
     }
   }
-
 }
