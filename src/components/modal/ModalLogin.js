@@ -1,34 +1,39 @@
 import { login } from "../../constants/api.js";
 import Modal from "./Modal.js";
+import ModalMessage from "./ModalMessage.js"
 
 export default class ModalLogin extends Modal {
     constructor() {
         const content = `
             <form class="login-form">
                 <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Пароль" required>
-                <button type="submit">Увійти</button>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Submit</button>
                 <p class="forgotPassword">
-                    <a href="#" class="forgotPassword-link"> забули пароль ?</a>
-                    <span class="joke-login">дуже-дуже шкода :-(</span>
+                    <a href="#" class="forgotPassword-link">forgot password?</a>
                 </p>
             </form>
         `;
-        super({ id: "modal-login", title: "Вхід", content });
+        super({ id: "modal-login", title: "Exit", content });
     }
 
-    fan() {
-
-    }
 
     create() {
         super.create();
 
         const form = this.modal.querySelector(".login-form");
         const loginBtn = document.querySelector(".btn-login");
+        const forgotPassword = document.querySelector('.forgotPassword');
 
+        if (forgotPassword) {
+            forgotPassword.addEventListener('click', (e) => {
+                e.preventDefault()
+                const message = new ModalMessage("this button will not help you, you need to remember the password");
 
-
+                message.create();
+                message.open();
+            });
+        }
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -38,38 +43,29 @@ export default class ModalLogin extends Modal {
 
             try {
                 const token = await login(email, password);
+                const message = new ModalMessage("You have visited your page!");
+                message.create();
+                message.open();
+
                 localStorage.setItem("token", token);
 
-                loginBtn.textContent = "Створити візит";
+                loginBtn.textContent = "Create a visit";
                 loginBtn.classList.add("create-visit");
 
                 this.close();
 
-                // виклик функції для завантаження карток
                 if (typeof window.loadCards === "function") {
                     window.loadCards();
                 }
-            } catch (error) {
-                const forgotPassword = document.querySelector('.forgotPassword');
 
+            } catch (error) {
                 let incorrectPassword = forgotPassword.querySelector('.incorrect-password');
 
                 if (!incorrectPassword) {
-                    incorrectPassword = document.createElement('p');
-                    incorrectPassword.classList.add('incorrect-password');
-                    incorrectPassword.textContent = 'не вірний пароль';
-
-                    const link = forgotPassword.querySelector('.forgotPassword-link');
-                    forgotPassword.insertBefore(incorrectPassword, link);
+                    const message = new ModalMessage("Incorrect password, try again.", error.message);
+                    message.create();
+                    message.open();
                 }
-
-                forgotPassword.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const joke = document.querySelector('.joke-login');
-                    const isHidden = getComputedStyle(joke).display === 'none';
-                    joke.style.display = isHidden ? 'block' : 'none';
-                });
-
             }
         });
     }

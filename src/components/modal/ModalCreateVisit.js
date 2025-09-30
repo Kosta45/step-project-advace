@@ -1,53 +1,104 @@
 import { Modal } from "./index.js";
-import { createCard } from "../../../src/constants/api.js";
+import { createCard, updateCard } from "../../../src/constants/api.js";
+import { loadCards } from "../../../public/index.js";
+import ModalMessage from "./ModalMessage.js";
 
-export default class ModalCreateVisit extends Modal {
-  constructor() {
+class ModalCreateVisit extends Modal {
+  constructor(title = "Створення візиту", onSubmit = null, editData = null) {
     super({
       id: "create-visit",
-      title: "Створення візиту",
+      title,
       content: `
-        <form class="visit-form ">
-          <div class="form-group">
-            <label for="visit-doctor">Лікар:</label>
-            <div class="select-wrapper select is-link"> 
-            <select id="visit-doctor" name="doctor" required class="">
-              <option value="">Оберіть лікаря</option>
-              <option value="cardiologist">Кардіолог</option>
-              <option value="dentist">Стоматолог</option>
-              <option value="therapist">Терапевт</option>
-            </select>
-            </div>
-          </div>
+                <form class="visit-form">
 
-          <div class="form-group">
-            <label for="visit-purpose">Мета візиту:</label>
-            <input class="input is-link" type="text" id="visit-purpose" name="purpose" required />
-          </div>
+                  <div class="form-group">
+                      <label for="visit-doctor">Doctor:</label>
+                      <select class="select is-link" id="visit-doctor" name="doctor" aria-label="Choose a doctor" required>
+                          <option value="">Choose a doctor</option>
+                          <option value="cardiologist">cardiologist</option>
+                          <option value="dentist">dentist</option>
+                          <option value="therapist">therapist</option>
+                      </select>
+                  </div>
 
-          <div class="form-group">
-            <label for="visit-description">Короткий опис:</label>
-            <textarea class="textarea" id="visit-description" name="description"></textarea>
-          </div>
+                  <div class="form-group">
+                      <label for="visit-fullName">Full name:</label>
+                      <input class="input is-link" type="text" id="visit-fullName" name="fullName" placeholder="Enter your full name" aria-label="Full name" required />
+                  </div>
+                    
+                  <div class="form-group">
+                      <label for="visit-purpose">Purpose of the visit:</label>
+                      <input class="input is-link" type="text" id="visit-purpose" name="purpose" placeholder="Purpose of the visit" aria-label="Purpose of the visit" required />
+                  </div>
 
-          <div class="form-group">
-            <label for="visit-urgency">Терміновість:</label>
-            <div class="select-wrapper select is-link"> 
-            <select id="visit-urgency" name="urgency" required>
-              <option value="low">Низька</option>
-              <option value="normal">Звичайна</option>
-              <option value="high">Висока</option>
-            </select>
-                </div>
-          </div>
+                  <div class="form-group">
+                      <label for="visit-description">Short description:</label>
+                      <textarea class="textarea" id="visit-description" name="description" placeholder="Describe the problem" aria-label="Short description"></textarea>
+                  </div>
 
-          <div class="modal-actions">
-            <button type="submit" class="btn-create-visit button is-primary">Створити</button>
-            <button type="button" class="btn-cancel-visit button is-danger">Скасувати</button>
-          </div>
-        </form>
-      `,
+                  <div class="form-group">
+                      <label for="visit-urgency">Urgency:</label>
+                      <select class="select is-link" id="visit-urgency" name="urgency" aria-label="Choose urgency" required>
+                          <option value="ordinary">ordinary</option>
+                          <option value="priority">priority</option>
+                          <option value="urgent">urgent</option>
+                      </select>
+                  </div>
+
+                  <div class="form-group doctor-field" data-doctor="cardiologist" style="display:none;">
+                      <label for="visit-bp">Normal pressure:</label>
+                      <input class="input is-link" type="text" id="visit-bp" name="bp" placeholder="for example..., 120/80" aria-label="Normal pressure" />
+                  </div>
+
+                  <div class="form-group doctor-field" data-doctor="cardiologist" style="display:none;">
+                      <label for="visit-bmi">Body mass index:</label>
+                      <input class="input is-link" type="text" id="visit-bmi" name="bmi" placeholder="for example..., 25" aria-label="Body mass index" />
+                  </div>
+
+                  <div class="form-group doctor-field" data-doctor="cardiologist" style="display:none;">
+                      <label for="visit-diseases">Past cardiovascular diseases:</label>
+                      <input class="input is-link" type="text" id="visit-diseases" name="diseases" placeholder="for example..., hypertension" aria-label="Past illnesses" />
+                  </div>
+
+                  <div class="form-group doctor-field" data-doctor="cardiologist" style="display:none;">
+                      <label for="visit-age">Age:</label>
+                      <input class="input is-link" type="text" id="visit-age" name="age" placeholder="for example..., 30" aria-label="Age" />
+                  </div>
+
+                  <div class="form-group doctor-field" data-doctor="dentist" style="display:none;">
+                      <label for="visit-lastVisit">Date of last visit:</label>
+                      <input class="input is-link" type="date" id="visit-lastVisit" name="lastVisit" placeholder="Виберіть дату" aria-label="Date of last visit" />
+                  </div>
+
+                  <div class="form-group doctor-field" data-doctor="therapist" style="display:none;">
+                      <label for="visit-age">Age:</label>
+                      <input class="input is-link" type="text" id="visit-age" name="age" placeholder="for example..., 30" aria-label="Age" />
+                  </div>
+
+                  <div class="modal-actions">
+                      <button type="submit" class="btn-create-visit button is-primary">${title === "Edit visit" ? "Save" : "Create"}</button>
+                      <button type="button" class="btn-cancel-visit button is-danger">Cancel</button>
+                  </div>
+
+                </form>
+            `,
     });
+    this.onSubmit = onSubmit;
+    this.editData = editData;
+    this.mode = editData ? "edit" : "create";
+  }
+
+  setFormValues(data) {
+    const form = this.modal.querySelector(".visit-form");
+    if (!form) return;
+    for (const [key, value] of Object.entries(data)) {
+      const input = form.querySelector(`[name="${key}"]`);
+      if (input) input.value = value || "";
+    }
+    const doctorSelect = form.querySelector("#visit-doctor");
+    if (doctorSelect && data.doctor) {
+      doctorSelect.dispatchEvent(new Event("change"));
+    }
   }
 
   create() {
@@ -55,34 +106,71 @@ export default class ModalCreateVisit extends Modal {
 
     const form = this.modal.querySelector(".visit-form");
     const cancelBtn = this.modal.querySelector(".btn-cancel-visit");
+    const doctorSelect = this.modal.querySelector("#visit-doctor");
+    const doctorFields = this.modal.querySelectorAll(".doctor-field");
+
+    if (doctorSelect) {
+      doctorSelect.addEventListener("change", () => {
+        const selected = doctorSelect.value;
+        doctorFields.forEach((field) => {
+          field.style.display = field.dataset.doctor === selected ? "block" : "none";
+        });
+      });
+    }
+
+    if (this.editData) {
+      this.setFormValues(this.editData);
+    }
 
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-
         const formData = new FormData(form);
         const visit = Object.fromEntries(formData.entries());
 
         try {
-          const newVisit = await createCard(visit); // виклик API
-          await loadCards(); // оновлення карток у контейнері
-          console.log("✅ Візит створено:", newVisit);
-
-          // 🔹 Можна одразу оновити список візитів у UI
-          // renderCard(newVisit);
-          // 🔹 Можна одразу оновити список візитів у UI
-          // renderCard(newVisit);
-
+          if (this.mode === "edit" && this.editData?.id) {
+            await updateCard(this.editData.id, visit);
+            await loadCards();
+            const message = new ModalMessage(`Doctor visit updated!`)
+            message.create();
+            message.open()
+          } else {
+            await createCard(visit);
+            await loadCards();
+            const message = new ModalMessage("Visit created!")
+            message.create();
+            message.open()
+          }
           this.close();
         } catch (err) {
-          console.error("❌ Помилка створення візиту:", err.message);
-          alert("Не вдалося створити візит. Перевірте дані.");
+          const message = new ModalMessage("error saving visit:", err.message)
+          message.create();
+          message.open()
         }
       });
     }
 
     if (cancelBtn) {
-      cancelBtn.addEventListener("click", () => this.close());
+      cancelBtn.addEventListener("click", () => {
+        const form = this.modal.querySelector(".visit-form");
+        if (form) {
+          form.reset();
+
+          const doctorFields = this.modal.querySelectorAll(".doctor-field");
+          doctorFields.forEach((field) => {
+            field.style.display = "none";
+          });
+
+          const doctorSelect = this.modal.querySelector("#visit-doctor");
+          if (doctorSelect) {
+            doctorSelect.value = "";
+          }
+        }
+        this.close();
+      });
     }
   }
 }
+
+export default ModalCreateVisit;

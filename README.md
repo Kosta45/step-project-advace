@@ -189,3 +189,14 @@ search/search.js пошук по меті візиту та ПІІБ            
 2. створювати картки div або li як краще?
 3. чи потрібно всім-всім тегам класи
 4. потрібно всім задавати data атрибути?
+
+
+
+
+**просто корисні нотатки**
+Приклад правильного інпуту:
+<div class="form-group">
+    <label for="visit-fullName">ПІБ:</label>
+    <input class="input is-link" type="text" id="visit-fullName" name="fullName" placeholder="Введіть ПІБ" aria-label="ПІБ" required />
+</div>
+- тут бажано щоб в інпута був <label> placeholder="" aria-label=""

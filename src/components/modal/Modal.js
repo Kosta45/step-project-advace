@@ -1,14 +1,13 @@
 class Modal {
-  // очікуємо об'єкт або без аргументів
   constructor({ id = "", title = "", content = "" } = {}) {
     this.id = id;
     this.title = title;
-    this.content = content; // ВАЖЛИВО: ім'я має збігатися з тим, що передаєш
+    this.content = content; 
     this.modal = null;
   }
 
   create() {
-    if (this.modal) return; // якщо вже створено — не створюємо вдруге
+    if (this.modal) return;
 
     this.modal = document.createElement("div");
     this.modal.classList.add("modal", "hidden");
@@ -16,7 +15,6 @@ class Modal {
 
     this.modal.innerHTML = `
         <div class="modal-content">
-          
           ${this.title ? `<h2 class="subtitle is-5">${this.title}</h2>` : ""}
           ${this.content}
         </div>
