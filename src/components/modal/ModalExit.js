@@ -33,7 +33,7 @@ export default class ModalExit extends Modal {
                 }
 
                 loginBtn.classList.remove(`create-visit`)
-                loginBtn.textContent = `Exit`;
+                loginBtn.textContent = `Login`;
 
                 this.close();
             });
