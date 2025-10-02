@@ -132,8 +132,7 @@ step-project-card/
 │   └── style/
 │       ├── index.css --> **основний css**
 │       ├── fons.css -->  **шрифти**
-│       ├── normalize.css
-│       └── reset.css --> **обнулення стилів**
+│       └── normalize.css --> **обнулення стилів**
 │
 └── src/
     ├── constants/
@@ -146,9 +145,15 @@ step-project-card/
     │    |    ├── Modal.js
     │    |    ├── ModalCreateVisit.js
     │    |    ├── ModalLogin.js
+    │    |    ├── ModalMessage.js --> **тут модельне вікно яке зявляється на екрані правом куті на три секунди воно не залежить від Modal.js**
     │    |    └── ModalExit.js
     │    │ 
-    │    └── Card.js --> **картка яку ми отримуємо**
+    │    └── Card.js/ 
+    │         ├── index.js --> **картка яку ми отримуємо**
+    |         ├── Visit.js
+    |         ├── VisitCardiologist.js
+    |         ├── VisitDentist.js
+    |         └── VisitTherapist.js
     │
     └── search/
     │    └── search.js --> **пошук**

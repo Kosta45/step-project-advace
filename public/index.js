@@ -17,7 +17,7 @@ function initLoginState() {
     loginBtn.classList.add("create-visit");
     loadCards();
   } else {
-    loginBtn.textContent = "Exit";
+    loginBtn.textContent = "Login";
     loginBtn.classList.remove("create-visit");
   }
 }

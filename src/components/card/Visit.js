@@ -1,6 +1,5 @@
 import { deleteCard, updateCard } from "../../constants/api.js";
 import { ModalCreateVisit } from "../modal/index.js";
-import { loadCards } from "../../../public/index.js";
 import ModalMessage from "../modal/ModalMessage.js"
 
 class Visit {
