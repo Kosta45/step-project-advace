@@ -59,12 +59,12 @@ async function loadCards() {
       "cards-section",
       "fixed-grid",
       "has-3-cols-desktop",
-      "has-2-cols-mobile"
+      "has-1-cols-mobile"
     );
     cardsContainer.append(cardsSection);
 
     const cardList = document.createElement("ul");
-    cardList.classList.add("cards-section-list", "grid");
+    cardList.classList.add("cards-section-list", "grid", "is-centered");
     cardsSection.append(cardList);
 
     cards.forEach((card) => {

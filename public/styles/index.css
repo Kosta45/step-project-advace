@@ -7,13 +7,13 @@ body {
   );
 
   width: 100%;
-  height: 100vw;
 }
 
 .container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 100px;
-  margin: auto;
   max-width: 1000px;
   overflow: hidden;
 }
@@ -41,45 +41,15 @@ body {
   margin-top: 48px;
 }
 
-.btn-login {
-  padding: 10px 20px;
-  background-color: red;
-  border: none;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
 .forgotPassword-link {
   color: #c2b6c7;
   position: relative;
-}
-
-.joke-login {
-  display: none;
-  padding: 10px 5px;
-  border: 1px solid black;
-  position: absolute;
-  left: 50%;
-  color: black;
-  white-space: nowrap;
-  background-color: #f8f8f8;
-  margin-left: 10px;
 }
 
 .incorrect-password {
   color: red;
   font-weight: bold;
   font-size: 30px;
-}
-
-.create-visit {
-  background-color: orange;
-}
-
-.btn-login:hover {
-  background-color: rgb(145, 61, 61);
-  color: black;
 }
 
 .filters__wrapper-selects {
@@ -89,11 +59,22 @@ body {
 }
 
 #cards-container {
+  width: 90%;
   background-color: #f9f7f7;
   gap: 1.5rem;
   padding: 20px;
   margin: 0 30px;
   border-radius: 10px;
+  margin-bottom: 100px;
+}
+
+.cards-section {
+  margin: auto;
+  width: 100%;
+}
+
+.cards-section-list {
+  gap: 20px;
 }
 
 .no-items {
@@ -105,7 +86,6 @@ body {
 }
 
 .card {
-  max-width: 400px;
   transition: 0.4s ease;
   overflow: hidden;
 }
@@ -113,7 +93,6 @@ body {
 .card:hover {
   transition: 0.4s ease;
   box-shadow: 0px 0px 11px 6px rgba(65, 135, 255, 0.606);
-  /* margin: 5px; */
 }
 
 .card-details {
@@ -189,19 +168,6 @@ body {
   cursor: pointer;
 }
 
-.btn-logout-yes {
-  padding: 10px 20px;
-  background-color: red;
-  border: rgb(136, 100, 100) 1px solid;
-}
-
-.btn-logout-no {
-  padding: 10px 20px;
-  background-color: orange;
-  border: rgb(136, 100, 100) 1px solid;
-  margin-left: 20px;
-}
-
 .form-group:nth-child(1),
 .form-group:nth-child(4) {
   display: flex;
@@ -209,20 +175,105 @@ body {
   gap: 10px;
 }
 
-@media (max-width: 1024px) {
+.incorrect-password {
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: #e74c3c;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+}
+
+.forgot-password {
+  display: flex;
+  flex-direction: column;
+}
+
+.forgot-password-link {
+  margin-top: 30px;
+}
+
+.joke-login {
+  display: none;
+  margin-top: 26px;
+  margin-right: 0px;
+  padding: 6px 12px;
+  background-color: #ffdd57;
+  color: #363636;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  animation: pop-in 0.3s ease-out;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1216px) {
   #cards-container {
     max-width: 100%;
+  }
+
+  .header {
+    font-size: 14px;
+  }
+
+  .logo {
+    margin-top: 30px;
+    width: 100px;
+  }
+
+  .button.is-link {
+    font-size: 14px;
+  }
+
+  .logo-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .filters__wrapper-selects {
+    gap: 10px;
   }
 }
 
 @media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    margin: auto;
+  }
+
+  .logo {
+    margin-left: 20px;
+  }
+
+  .filters {
+    padding: 20px;
+  }
+
+  .filters__wrapper-selects {
+    flex-wrap: wrap;
+  }
+
+  .create-visit {
+    margin-bottom: 10px;
+  }
+
   #cards-container {
     grid-template-columns: 1fr;
     margin: 0 15px;
     padding: 15px;
-  }
-
-  .card {
-    max-width: 400px;
+    max-width: 80%;
   }
 }

@@ -44,8 +44,6 @@ class Card {
 
     this.container.append(card);
 
-   
-
     // тут при натиску на кнопку показати більше щоб показувались деталі
     const show = card.querySelector(`.btn-show`);
     const detail = card.querySelector(`.card-details`);
