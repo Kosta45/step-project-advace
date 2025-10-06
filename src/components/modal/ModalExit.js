@@ -1,11 +1,10 @@
-// src/components/modal/ModalExit.js
 import Modal from "./Modal.js";
 
 export default class ModalExit extends Modal {
   constructor() {
     super({
       id: "modal-out-account",
-      title: "Ви впевнені, що хочете вийти з акаунта?",
+      title: "Are you sure you want to log out?",
       content: `
         <div class="modal-actions">
           <button type="button" class="btn-logout-yes button is-primary">Так</button>
@@ -19,21 +18,24 @@ export default class ModalExit extends Modal {
   create() {
     super.create();
 
-    // Невеликий захист — інпутів може не бути, тому перевіряємо
     const yes = this.modal.querySelector(".btn-logout-yes");
     const no = this.modal.querySelector(".btn-logout-no");
 
     if (yes) {
-      yes.addEventListener("click", () => {
+      yes.addEventListener("click", async () => {
         const loginBtn = document.querySelector(".btn-login");
-        // тут робимо реальний логаут: видалити токен, оновити UI і т.д.
+        const cardsContainer = document.querySelector("#cards-container");
+
         localStorage.removeItem("token");
-        console.log("Вийшли з акаунта");
-        this.close();
+
+        if (cardsContainer) {
+          cardsContainer.innerHTML = `<p class="no-items">Congratulations, you have left our steppe project.</p>`;
+        }
+
         loginBtn.classList.remove(`create-visit`);
-        loginBtn.textContent = `Вхід`;
-        // наприклад, можна перезавантажити сторінку або оновити кнопку
-        // location.reload();
+        loginBtn.textContent = `Login`;
+
+        this.close();
       });
     }
 

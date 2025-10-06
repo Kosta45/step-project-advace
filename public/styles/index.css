@@ -62,7 +62,6 @@ body {
   width: 90%;
   background-color: #f9f7f7;
   gap: 1.5rem;
-  padding: 20px;
   margin: 0 30px;
   border-radius: 10px;
   margin-bottom: 100px;
@@ -77,12 +76,17 @@ body {
   gap: 20px;
 }
 
+.cards-section {
+  padding: 20px;
+}
+
 .no-items {
   padding-left: 80px;
   font-size: 30px;
   font-style: italic;
   color: #888;
   grid-column: 1 / -1;
+  padding: 20px;
 }
 
 .card {
@@ -166,6 +170,65 @@ body {
   background: transparent;
   font-size: 20px;
   cursor: pointer;
+}
+
+/* Modal message */
+.modal-message {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.modal-content-message {
+  min-width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* font-family: sans-serif; */
+  /* position: relative; */
+}
+
+.modal-close-message {
+  color: white;
+  position: absolute;
+  top: 25%;
+  right: 5%;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.message {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  padding: 15px 30px 15px 20px;
+  border-radius: 8px;
+}
+
+.message-error {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 15px 35px 15px 20px;
+  border-radius: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+.btn-logout-yes {
+  padding: 10px 20px;
+  background-color: red;
+  border: rgb(136, 100, 100) 1px solid;
+}
+
+.btn-logout-no {
+  padding: 10px 20px;
+  background-color: orange;
+  border: rgb(136, 100, 100) 1px solid;
+  margin-left: 20px;
 }
 
 .form-group:nth-child(1),

@@ -132,8 +132,7 @@ step-project-card/
 │   └── style/
 │       ├── index.css --> **основний css**
 │       ├── fons.css -->  **шрифти**
-│       ├── normalize.css
-│       └── reset.css --> **обнулення стилів**
+│       └── normalize.css --> **обнулення стилів**
 │
 └── src/
     ├── constants/
@@ -146,9 +145,15 @@ step-project-card/
     │    |    ├── Modal.js
     │    |    ├── ModalCreateVisit.js
     │    |    ├── ModalLogin.js
+    │    |    ├── ModalMessage.js --> **тут модельне вікно яке зявляється на екрані правом куті на три секунди воно не залежить від Modal.js**
     │    |    └── ModalExit.js
     │    │ 
-    │    └── Card.js --> **картка яку ми отримуємо**
+    │    └── Card.js/ 
+    │         ├── index.js --> **картка яку ми отримуємо**
+    |         ├── Visit.js
+    |         ├── VisitCardiologist.js
+    |         ├── VisitDentist.js
+    |         └── VisitTherapist.js
     │
     └── search/
     │    └── search.js --> **пошук**
@@ -189,3 +194,14 @@ search/search.js пошук по меті візиту та ПІІБ            
 2. створювати картки div або li як краще?
 3. чи потрібно всім-всім тегам класи
 4. потрібно всім задавати data атрибути?
+
+
+
+
+**просто корисні нотатки**
+Приклад правильного інпуту:
+<div class="form-group">
+    <label for="visit-fullName">ПІБ:</label>
+    <input class="input is-link" type="text" id="visit-fullName" name="fullName" placeholder="Введіть ПІБ" aria-label="ПІБ" required />
+</div>
+- тут бажано щоб в інпута був <label> placeholder="" aria-label=""

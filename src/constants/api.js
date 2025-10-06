@@ -59,7 +59,7 @@ export async function deleteCard(id) {
 export async function updateCard(id, cardData) {
   const token = localStorage.getItem("token");
   const response = await fetch(`${API_URL}/cards/${id}`, {
-    method: "PATCH",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

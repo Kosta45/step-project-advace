@@ -1,5 +1,6 @@
 import { login } from "../../constants/api.js";
 import Modal from "./Modal.js";
+import ModalMessage from "./ModalMessage.js";
 
 export default class ModalLogin extends Modal {
   constructor() {
@@ -14,16 +15,27 @@ export default class ModalLogin extends Modal {
                 </div>
             </form>
         `;
-    super({ id: "modal-login", title: "Вхід", content });
+    super({ id: "modal-login", title: "Exit", content });
   }
-
-  fan() {}
 
   create() {
     super.create();
 
     const form = this.modal.querySelector(".login-form");
     const loginBtn = document.querySelector(".btn-login");
+    const forgotPassword = document.querySelector(".forgotPassword");
+
+    if (forgotPassword) {
+      forgotPassword.addEventListener("click", (e) => {
+        e.preventDefault();
+        const message = new ModalMessage(
+          "this button will not help you, you need to remember the password"
+        );
+
+        message.create();
+        message.open();
+      });
+    }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -33,39 +45,33 @@ export default class ModalLogin extends Modal {
 
       try {
         const token = await login(email, password);
+        const message = new ModalMessage("You have visited your page!");
+        message.create();
+        message.open();
+
         localStorage.setItem("token", token);
 
-        loginBtn.textContent = "Створити візит";
+        loginBtn.textContent = "Create a visit";
         loginBtn.classList.add("create-visit");
 
         this.close();
 
-        // виклик функції для завантаження карток
         if (typeof window.loadCards === "function") {
           window.loadCards();
         }
       } catch (error) {
-        const forgotPassword = document.querySelector(".forgot-password");
-
         let incorrectPassword = forgotPassword.querySelector(
           ".incorrect-password"
         );
 
         if (!incorrectPassword) {
-          incorrectPassword = document.createElement("p");
-          incorrectPassword.classList.add("incorrect-password");
-          incorrectPassword.textContent = "Password is not correct!";
-
-          const link = forgotPassword.querySelector(".forgot-password-link");
-          forgotPassword.insertBefore(incorrectPassword, link);
+          const message = new ModalMessage(
+            "Incorrect password, try again.",
+            error.message
+          );
+          message.create();
+          message.open();
         }
-
-        forgotPassword.addEventListener("click", (e) => {
-          e.preventDefault();
-          const joke = document.querySelector(".joke-login");
-          const isHidden = getComputedStyle(joke).display === "none";
-          joke.style.display = isHidden ? "inline-block" : "none";
-        });
       }
     });
   }

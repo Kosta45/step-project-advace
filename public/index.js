@@ -1,6 +1,6 @@
-import { getCards } from "../src/constants/api.js";
+import { getCards, updateCard } from "../src/constants/api.js";
 import * as Modals from "../src/components/modal/index.js";
-import Card from "../src/components/Card.js";
+import * as Visit from "../src/components/card/index.js";
 
 const loginBtn = document.querySelector(".btn-login");
 const cardsContainer = document.querySelector("#cards-container");
@@ -9,27 +9,24 @@ const exitModal = new Modals.ModalExit();
 const loginModal = new Modals.ModalLogin();
 const createVisitModal = new Modals.ModalCreateVisit();
 
-// токена при завантаженні
 function initLoginState() {
   const token = localStorage.getItem("token");
 
   if (token) {
-    loginBtn.textContent = "Створити візит";
+    loginBtn.textContent = "Create visit";
     loginBtn.classList.add("create-visit");
     loadCards();
   } else {
-    loginBtn.textContent = "Вхід";
+    loginBtn.textContent = "Login";
     loginBtn.classList.remove("create-visit");
   }
 }
 
-// вихід
 document.querySelector(".logo").addEventListener("click", (e) => {
   e.preventDefault();
   exitModal.open();
 });
 
-// створити візит
 loginBtn.addEventListener("click", () => {
   const token = localStorage.getItem("token");
 
@@ -40,17 +37,13 @@ loginBtn.addEventListener("click", () => {
   }
 });
 
-// отримання карток
-// ---- Завантаження карток ----
-async function loadCards() {
+export async function loadCards() {
   try {
     const cards = await getCards();
-
-    // очищаємо контейнер перед рендером
     cardsContainer.innerHTML = "";
 
     if (!cards || cards.length === 0) {
-      cardsContainer.innerHTML = `<p class="no-items">Поки що немає жодної картки...</p>`;
+      cardsContainer.innerHTML = `<p class="no-items">No items have been added...</p>`;
       return;
     }
 
@@ -68,10 +61,20 @@ async function loadCards() {
     cardsSection.append(cardList);
 
     cards.forEach((card) => {
-      new Card(card, cardList).render();
+      switch (card.doctor) {
+        case "dentist":
+          new Visit.VisitDentist(card, cardList).render();
+          break;
+        case "cardiologist":
+          new Visit.VisitCardiologist(card, cardList).render();
+          break;
+        case "therapist":
+          new Visit.VisitTherapist(card, cardList).render();
+          break;
+      }
     });
   } catch (error) {
-    console.error(`Помилка при отриманні карток: ${error}`);
+    console.error(`Error while receiving cards: ${error}`);
   }
 }
 
