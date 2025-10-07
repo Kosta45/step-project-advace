@@ -1,8 +1,10 @@
 import { getCards, updateCard } from "../src/constants/api.js";
 import * as Modals from "../src/components/modal/index.js";
 import * as Visit from "../src/components/card/index.js";
+import { searchAndRenderCards } from '../src/search/search.js';
 
 const loginBtn = document.querySelector(".btn-login");
+const searchInput = document.querySelector('#search-input');
 const cardsContainer = document.querySelector("#cards-container");
 
 const exitModal = new Modals.ModalExit();
@@ -15,7 +17,7 @@ function initLoginState() {
   if (token) {
     loginBtn.textContent = "Create visit";
     loginBtn.classList.add("create-visit");
-    loadCards();
+    searchAndRenderCards();
   } else {
     loginBtn.textContent = "Login";
     loginBtn.classList.remove("create-visit");
@@ -77,6 +79,19 @@ export async function loadCards() {
     console.error(`Error while receiving cards: ${error}`);
   }
 }
+async function handleSearch() {
+  const searchValue = searchInput.value.trim();
+  const filteredCards = await searchCards(searchValue);
+  await renderCards(filteredCards);
+}
+
+// Викликати спочатку, щоб завантажити всі карти
+searchAndRenderCards();
+
+// Додаємо подію на пошук
+searchInput.addEventListener('input', () => {
+  searchAndRenderCards(searchInput.value.trim());
+});
 
 window.loadCards = loadCards;
 
