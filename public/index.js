@@ -1,10 +1,12 @@
 import { getCards, updateCard } from "../src/constants/api.js";
 import * as Modals from "../src/components/modal/index.js";
 import * as Visit from "../src/components/card/index.js";
-import { searchAndRenderCards } from '../src/search/search.js';
+import { searchAndRenderCards } from "../src/search/search.js";
+import { filterCards } from "../src/filter/filter.js";
 
 const loginBtn = document.querySelector(".btn-login");
-const searchInput = document.querySelector('#search-input');
+const filterBtn = document.querySelector(".btn-filter");
+const searchInput = document.querySelector("#search-input");
 const cardsContainer = document.querySelector("#cards-container");
 
 const exitModal = new Modals.ModalExit();
@@ -38,6 +40,8 @@ loginBtn.addEventListener("click", () => {
     createVisitModal.open();
   }
 });
+
+filterBtn.addEventListener("click", filterCards);
 
 export async function loadCards() {
   try {
@@ -89,7 +93,7 @@ async function handleSearch() {
 searchAndRenderCards();
 
 // Додаємо подію на пошук
-searchInput.addEventListener('input', () => {
+searchInput.addEventListener("input", () => {
   searchAndRenderCards(searchInput.value.trim());
 });
 
