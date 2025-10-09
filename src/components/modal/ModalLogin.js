@@ -1,4 +1,5 @@
 import { login } from "../../constants/api.js";
+import { loadCards } from "../../../public/index.js";
 import Modal from "./Modal.js";
 import ModalMessage from "./ModalMessage.js";
 
@@ -6,73 +7,74 @@ export default class ModalLogin extends Modal {
   constructor() {
     const content = `
             <form class="login-form">
-                <input class="input is-link" name="email" type="email" placeholder="Email" required>
-                <input class="input is-link" name-"password" type="password" placeholder="Пароль" required>
-                <button type="submit" class="button is-primary">Увійти</button>
-                <div class="forgot-password">
-                    <a href="#" class="forgot-password-link"> забули пароль ?</a>
-                    <span class="joke-login">Oops! Forgot your password? 😅</span>
+                <div class="form-group">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="email" placeholder="Enter your email" aria-label="Email" required>
                 </div>
+                <div class="form-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" placeholder="Enter your password" aria-label="Password" required>
+                </div>
+                <button type="submit" class="button is-primary">Login</button>
+                <p class="forgotPassword">
+                    <a href="#" class="forgotPassword-link">Forgot password?</a>
+                </p>
             </form>
         `;
-    super({ id: "modal-login", title: "Exit", content });
+    super({ id: "modal-login", title: "Login", content });
   }
 
   create() {
     super.create();
 
-    const form = this.modal.querySelector(".login-form");
+    const form = this.modal ? this.modal.querySelector(".login-form") : null;
     const loginBtn = document.querySelector(".btn-login");
-    const forgotPassword = document.querySelector(".forgotPassword");
+    const forgotPassword = this.modal ? this.modal.querySelector(".forgotPassword") : null;
 
     if (forgotPassword) {
       forgotPassword.addEventListener("click", (e) => {
         e.preventDefault();
-        const message = new ModalMessage(
-          "this button will not help you, you need to remember the password"
-        );
-
+        const message = new ModalMessage("This button will not help you, you need to remember the password", true);
         message.create();
         message.open();
       });
     }
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const { email, password } = Object.fromEntries(formData.entries());
 
-      const email = form.querySelector('input[type="email"]').value;
-      const password = form.querySelector('input[type="password"]').value;
+        try {
+          const token = await login(email, password);
+          localStorage.setItem("token", token);
 
-      try {
-        const token = await login(email, password);
-        const message = new ModalMessage("You have visited your page!");
-        message.create();
-        message.open();
+          const message = new ModalMessage("You have successfully logged in!");
+          message.create();
+          message.open();
 
-        localStorage.setItem("token", token);
+          if (loginBtn) {
+            loginBtn.textContent = "Create a visit";
+            loginBtn.classList.add("create-visit");
+          } else {
+            console.error("Кнопка .btn-login не знайдена");
+          }
 
-        loginBtn.textContent = "Create a visit";
-        loginBtn.classList.add("create-visit");
-
-        this.close();
-
-        if (typeof window.loadCards === "function") {
-          window.loadCards();
-        }
-      } catch (error) {
-        let incorrectPassword = forgotPassword.querySelector(
-          ".incorrect-password"
-        );
-
-        if (!incorrectPassword) {
-          const message = new ModalMessage(
-            "Incorrect password, try again.",
-            error.message
-          );
+          this.close();
+          await loadCards();
+        } catch (error) {
+          console.error("Помилка логіну:", error.message);
+          const message = new ModalMessage(`Помилка: ${error.message}`, true);
           message.create();
           message.open();
         }
-      }
-    });
+      });
+    } else {
+      console.error("Форма .login-form не знайдена");
+      const message = new ModalMessage("Помилка: форма логіну не ініціалізована", true);
+      message.create();
+      message.open();
+    }
   }
 }

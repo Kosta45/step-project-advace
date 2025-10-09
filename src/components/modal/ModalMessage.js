@@ -10,18 +10,18 @@ class ModalMessage extends Modal {
     }
 
     create() {
-        if (this.modal) return; 
+        if (this.modal || !document.body) return;
 
         this.modal = document.createElement("div");
         this.modal.classList.add("modal-message", "hidden");
         if (this.id) this.modal.id = this.id;
 
         this.modal.innerHTML = `
-            <div class="modal-content-message">
-                <span class="modal-close-message">✖</span>
-                <p class="${this.isError ? 'message-error' : 'message'}">${this.message}</p>
-            </div>
-        `;
+        <div class="modal-content-message">
+            <span class="modal-close-message">✖</span>
+            <p class="${this.isError ? 'message-error' : 'message'}">${this.message}</p>
+        </div>
+    `;
 
         const closeBtn = this.modal.querySelector(".modal-close-message");
         if (closeBtn) {
