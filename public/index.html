@@ -41,29 +41,31 @@
             />
             <div class="filters__wrapper-selects">
               <div class="select is-link">
-                <select>
-                  <option>Status</option>
+                <select name="filter-status" id="filter-status">
+                  <option value="">Статус</option>
                   <option value="open">Open</option>
                   <option value="done">Done</option>
                 </select>
               </div>
               <div class="select is-link">
-                <select>
-                  <option>Doctors</option>
+                <select name="filter-doctor" id="filter-doctor">
+                  <option value="">Doctors</option>
                   <option value="cardiologist">Cardiologist</option>
                   <option value="dentist">Dentist</option>
                   <option value="therapist">Therapist</option>
                 </select>
               </div>
               <div class="select is-link">
-                <select>
-                  <option>Urgency</option>
-                  <option value="high">High</option>
-                  <option value="normal">Normal</option>
-                  <option value="low">Low</option>
+                <select name="filter-priority" id="filter-priority">
+                  <option value="">Urgency</option>
+                  <option value="urgent">urgent</option>
+                  <option value="priority">priority</option>
+                  <option value="ordinary">ordinary</option>
                 </select>
               </div>
-              <button type="submit" class="button is-link">Filter</button>
+              <button type="submit" class="btn-filter button is-link">
+                Filter
+              </button>
             </div>
           </form>
         </section>
