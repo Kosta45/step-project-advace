@@ -16,9 +16,7 @@ class Visit {
         <div class="card">
             <div class="card-content">
                 <p><strong>Doctor:</strong> ${this.data.doctor}</p>
-                <p><strong>Purpose:</strong> ${this.data.purpose}</p>
-                <p><strong>Description:</strong> ${this.data.description}</p>
-                <p><strong>Urgency:</strong> ${this.data.urgency}</p>
+                <p><strong>Full name:</strong> ${this.data.fullName}</p>
             </div>
 
             <footer class="card-footer">
@@ -43,24 +41,34 @@ class Visit {
 
         card.querySelector(".btn-show").addEventListener("click", (e) => {
             e.preventDefault();
+            const cardContent = card.querySelector(".card-content");
             if (!cardContent.dataset.expanded) {
                 cardContent.innerHTML = `
-                    <p><strong>Doctor:</strong> ${this.data.doctor}</p>
-                    <p><strong>purpose:</strong> ${this.data.purpose}</p>
-                    <p><strong>Description:</strong> ${this.data.description}</p>
-                    <p><strong>Urgency:</strong> ${this.data.urgency}</p>
-                    <p><strong>Full name:</strong> ${this.data.fullName || "-"}</p>
-                    ${extraFields}
-                `;
+            <p><strong>Doctor:</strong> ${this.data.doctor || "-"}</p>
+            <p><strong>Full name:</strong> ${this.data.fullName || "-"}</p>
+            <p><strong>Purpose:</strong> ${this.data.purpose || "-"}</p>
+            <p><strong>Description:</strong> ${this.data.description || "-"}</p>
+            <p><strong>Urgency:</strong> ${this.data.urgency || "-"}</p>
+            <p><strong>Status:</strong> ${this.data.status || "open"}</p>
+            ${this.data.doctor === "cardiologist" ? `
+                <p><strong>Normal pressure:</strong> ${this.data.bp || "-"}</p>
+                <p><strong>Body mass index:</strong> ${this.data.bmi || "-"}</p>
+                <p><strong>Past diseases:</strong> ${this.data.diseases || "-"}</p>
+            ` : ""}
+            ${this.data.doctor === "dentist" ? `
+                <p><strong>Last visit:</strong> ${this.data.lastVisit || "-"}</p>
+            ` : ""}
+            ${this.data.doctor === "therapist" ? `
+                <p><strong>Age:</strong> ${this.data.age || "-"}</p>
+            ` : ""}
+        `;
                 cardContent.dataset.expanded = "true";
                 e.target.textContent = "Show less";
             } else {
                 cardContent.innerHTML = `
-                    <p><strong>Doctor:</strong> ${this.data.doctor}</p>
-                    <p><strong>purpose:</strong> ${this.data.purpose}</p>
-                    <p><strong>Description:</strong> ${this.data.description}</p>
-                    <p><strong>Urgency:</strong> ${this.data.urgency}</p>
-                `;
+            <p><strong>Doctor:</strong> ${this.data.doctor || "-"}</p>
+            <p><strong>Full name:</strong> ${this.data.fullName || "-"}</p>
+        `;
                 delete cardContent.dataset.expanded;
                 e.target.textContent = "Show more";
             }
