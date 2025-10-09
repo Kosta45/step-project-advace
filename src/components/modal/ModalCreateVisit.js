@@ -4,7 +4,7 @@ import { loadCards } from "../../../public/index.js";
 import ModalMessage from "./ModalMessage.js";
 
 class ModalCreateVisit extends Modal {
-  constructor(title = "Створення візиту", onSubmit = null, editData = null) {
+  constructor(title = "Create a visit", onSubmit = null, editData = null) {
     super({
       id: "create-visit",
       title,
