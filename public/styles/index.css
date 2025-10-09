@@ -19,6 +19,7 @@ body {
 }
 
 .header {
+  width: 90%;
   margin-top: 10px;
   display: flex;
   justify-content: space-around;
@@ -26,6 +27,7 @@ body {
   color: white;
   border-bottom: 2px solid rgb(175, 195, 247);
   transition: 0.5s ease;
+  padding-inline: 20px;
 }
 
 .header:hover {
@@ -56,6 +58,18 @@ body {
   margin-block: 10px;
   display: flex;
   gap: 40px;
+}
+
+.wrapper-search {
+  display: flex;
+}
+
+.input {
+  border-radius: 5px 0px 0px 5px;
+}
+
+.btn-search {
+  border-radius: 0px 5px 5px 0px;
 }
 
 #cards-container {
@@ -222,21 +236,8 @@ body {
   display: none;
 }
 
-.btn-logout-yes {
-  padding: 10px 20px;
-  background-color: red;
-  border: rgb(136, 100, 100) 1px solid;
-}
-
-.btn-logout-no {
-  padding: 10px 20px;
-  background-color: orange;
-  border: rgb(136, 100, 100) 1px solid;
-  margin-left: 20px;
-}
-
 .form-group:nth-child(1),
-.form-group:nth-child(4) {
+.form-group:nth-child(5) {
   display: flex;
   align-items: center;
   gap: 10px;

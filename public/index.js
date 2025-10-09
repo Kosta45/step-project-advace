@@ -1,10 +1,13 @@
 import { getCards, updateCard } from "../src/constants/api.js";
 import * as Modals from "../src/components/modal/index.js";
 import * as Visit from "../src/components/card/index.js";
-import { searchAndRenderCards } from '../src/search/search.js';
+import { searchAndRenderCards } from "../src/search/search.js";
+import { filterCards } from "../src/filter/filter.js";
 
 const loginBtn = document.querySelector(".btn-login");
-const searchInput = document.querySelector('#search-input');
+const filterBtn = document.querySelector(".btn-filter");
+const searchBtn = document.querySelector(".btn-search");
+const searchInput = document.querySelector("#search-input");
 const cardsContainer = document.querySelector("#cards-container");
 
 const exitModal = new Modals.ModalExit();
@@ -38,6 +41,8 @@ loginBtn.addEventListener("click", () => {
     createVisitModal.open();
   }
 });
+
+filterBtn.addEventListener("click", filterCards);
 
 export async function loadCards() {
   try {
@@ -79,17 +84,13 @@ export async function loadCards() {
     console.error(`Error while receiving cards: ${error}`);
   }
 }
-async function handleSearch() {
-  const searchValue = searchInput.value.trim();
-  const filteredCards = await searchCards(searchValue);
-  await renderCards(filteredCards);
-}
 
 // Викликати спочатку, щоб завантажити всі карти
 searchAndRenderCards();
 
 // Додаємо подію на пошук
-searchInput.addEventListener('input', () => {
+searchBtn.addEventListener("click", (event) => {
+  event.preventDefault();
   searchAndRenderCards(searchInput.value.trim());
 });
 
