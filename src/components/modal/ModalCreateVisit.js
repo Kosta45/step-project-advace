@@ -12,12 +12,14 @@ class ModalCreateVisit extends Modal {
             <form class="visit-form">
                 <div class="form-group">
                     <label for="visit-doctor">Choose a doctor:</label>
-                    <select class="select is-link" id="visit-doctor" name="doctor" aria-label="Choose a doctor" required>
+                     <div class="select is-link">
+                    <select  id="visit-doctor" name="doctor" aria-label="Choose a doctor" required>
                         <option value="">Choose a doctor</option>
                         <option value="cardiologist">cardiologist</option>
                         <option value="dentist">dentist</option>
                         <option value="therapist">therapist</option>
                     </select>
+                      </div>
                 </div>
 
                 <div class="form-group">
@@ -30,19 +32,21 @@ class ModalCreateVisit extends Modal {
                     <input class="input is-link" type="text" id="visit-purpose" name="purpose" placeholder="Purpose of the visit" aria-label="purpose of the visit" required />
                 </div>
 
-                <div class="form-group">
+                <div class="form-group form-group-textarea">
                     <label for="Description">Description:</label>
                     <textarea class="textarea" id="Description" name="description" placeholder="Describe the problem" aria-label="Description"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="visit-urgency">Urgency of the visit:</label>
-                    <select class="select is-link" id="visit-urgency" name="urgency" aria-label="Choose urgency" required>
+                    <div class="select is-link">
+                    <select  id="visit-urgency" name="urgency" aria-label="Choose urgency" required>
                         <option value="">Urgency</option>
                         <option value="ordinary">ordinary</option>
                         <option value="priority">priority</option>
                         <option value="urgent">urgent</option>
                     </select>
+                    </div>
                 </div>
 
                 <div class="form-group doctor-field" data-doctor="cardiologist" style="display:none;">
@@ -71,7 +75,9 @@ class ModalCreateVisit extends Modal {
                 </div>
 
                 <div class="modal-actions">
-                    <button type="submit" class="btn-create-visit button is-primary">${editData ? "Save" : "Create"}</button>
+                    <button type="submit" class="btn-create-visit button is-primary">${
+                      editData ? "Save" : "Create"
+                    }</button>
                     <button type="button" class="btn-cancel-visit button is-danger">Cancel</button>
                 </div>
             </form>
@@ -81,8 +87,6 @@ class ModalCreateVisit extends Modal {
     this.editData = editData;
     this.mode = editData ? "edit" : "create";
   }
-
-
 
   create() {
     super.create();
@@ -110,7 +114,8 @@ class ModalCreateVisit extends Modal {
       doctorSelect.addEventListener("change", () => {
         const selected = doctorSelect.value;
         doctorFields.forEach((field) => {
-          field.style.display = field.dataset.doctor === selected ? "block" : "none";
+          field.style.display =
+            field.dataset.doctor === selected ? "block" : "none";
         });
       });
     }
