@@ -32,13 +32,19 @@
 
         <section class="filters section">
           <form>
-            <input
-              id="search-input"
-              name="search-input"
-              class="input is-link"
-              type="search"
-              placeholder="Search by title/content"
-            />
+            <div class="wrapper-search">
+              <input
+                id="search-input"
+                name="search-input"
+                class="input is-link"
+                type="search"
+                placeholder="Search by title/content"
+              />
+              <button type="submit" class="btn-search button is-link">
+                Search
+              </button>
+            </div>
+
             <div class="filters__wrapper-selects">
               <div class="select is-link">
                 <select name="filter-status" id="filter-status">
