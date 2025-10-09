@@ -94,6 +94,10 @@ body {
   overflow: hidden;
 }
 
+.highlight {
+  background-color: aquamarine;
+}
+
 .card:hover {
   transition: 0.4s ease;
   box-shadow: 0px 0px 11px 6px rgba(65, 135, 255, 0.606);

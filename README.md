@@ -116,9 +116,9 @@ pasword:
 TOKEN: f47b5fc8-2b5e-493d-b360-25331eb5bada
 
 **Ігорь**
-login: 
+login: havrik2909@gmail.com
 pasword: 
-TOKEN: 
+TOKEN: e8c01f1c-286b-4eaf-a5de-f6d0880723db
 
 **СТРУКТУРА ПАПОК**
 step-project-card/
