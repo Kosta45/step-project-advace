@@ -60,6 +60,18 @@ body {
   gap: 40px;
 }
 
+.wrapper-search {
+  display: flex;
+}
+
+.input {
+  border-radius: 5px 0px 0px 5px;
+}
+
+.btn-search {
+  border-radius: 0px 5px 5px 0px;
+}
+
 #cards-container {
   width: 90%;
   background-color: #f9f7f7;
