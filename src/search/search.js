@@ -28,7 +28,7 @@ export async function searchAndRenderCards(searchValue = "") {
   cardsContainer.innerHTML = "";
 
   if (!filteredCards.length) {
-    cardsContainer.innerHTML = `<p class="no-items">Нічого не знайдено...</p>`;
+    cardsContainer.innerHTML = `<p class="no-items">Nothing found...</p>`;
     return;
   }
 
