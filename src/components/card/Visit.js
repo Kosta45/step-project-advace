@@ -14,7 +14,7 @@ class Visit {
 
     card.innerHTML = `
         <div class="card">
-            <div class="card-content">
+            <div class="card-content hidden-info">
                 <p><strong>Doctor:</strong> ${this.data.doctor}</p>
                 <p><strong>Full name:</strong> ${this.data.fullName}</p>
             </div>
@@ -79,12 +79,10 @@ class Visit {
             }
         `;
         cardContent.dataset.expanded = "true";
+        cardContent.classList.toggle("hidden-info");
         e.target.textContent = "Show less";
       } else {
-        cardContent.innerHTML = `
-            <p><strong>Doctor:</strong> ${this.data.doctor || "-"}</p>
-            <p><strong>Full name:</strong> ${this.data.fullName || "-"}</p>
-        `;
+        cardContent.classList.toggle("hidden-info");
         delete cardContent.dataset.expanded;
         e.target.textContent = "Show more";
       }
