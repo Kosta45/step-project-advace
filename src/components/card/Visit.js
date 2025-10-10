@@ -39,6 +39,10 @@ class Visit {
       message.open();
     });
 
+    if (this.data.urgency === "urgent") {
+      card.classList.add("card-urgent");
+    }
+
     card.querySelector(".btn-show").addEventListener("click", (e) => {
       e.preventDefault();
       const cardContent = card.querySelector(".card-content");

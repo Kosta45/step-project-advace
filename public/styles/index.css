@@ -148,6 +148,16 @@ body {
   color: red;
 }
 
+.card-urgent {
+  border-bottom: 1px solid rgb(175, 195, 247);
+  -webkit-box-shadow: 0px 24px 41px -8px rgba(0, 0, 0, 0.52);
+  box-shadow: 0px 24px 41px -23px #ff3860;
+  border: 2px solid #ff3860; /* Bulma danger color */
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 56, 96, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
 .modal {
   position: fixed;
   inset: 0;
