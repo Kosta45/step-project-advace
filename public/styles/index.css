@@ -1,3 +1,5 @@
+/* Всегда используем светлую цветовую схему */
+
 body {
   background: #9ec5ff;
   background: radial-gradient(
@@ -121,6 +123,14 @@ body {
   overflow: hidden;
   max-height: 700px;
   transition: 0.7s ease;
+}
+
+.card-content-info {
+  margin-block: 10px;
+}
+
+.card-extra-info {
+  margin-block: 15px;
 }
 
 .card-content.hidden-info {

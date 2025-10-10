@@ -15,8 +15,8 @@ class Visit {
     card.innerHTML = `
         <div class="card">
             <div class="card-content hidden-info">
-                <p><strong>Doctor:</strong> ${this.data.doctor}</p>
-                <p><strong>Full name:</strong> ${this.data.fullName}</p>
+                <p class="card-content-info"><strong>Doctor:</strong> ${this.data.doctor}</p>
+                <p class="card-content-info"><strong>Full name:</strong> ${this.data.fullName}</p>
             </div>
 
             <footer class="card-footer">
@@ -44,18 +44,34 @@ class Visit {
       const cardContent = card.querySelector(".card-content");
       if (!cardContent.dataset.expanded) {
         cardContent.innerHTML = `
-            <p><strong>Doctor:</strong> ${this.data.doctor || "-"}</p>
-            <p><strong>Full name:</strong> ${this.data.fullName || "-"}</p>
-            <p><strong>Purpose:</strong> ${this.data.purpose || "-"}</p>
-            <p><strong>Description:</strong> ${this.data.description || "-"}</p>
-            <p><strong>Urgency:</strong> ${this.data.urgency || "-"}</p>
-            <p><strong>Status:</strong> ${this.data.status || "open"}</p>
+            <p class="card-content-info"><strong>Doctor:</strong> ${
+              this.data.doctor || "-"
+            }</p>
+            <p class="card-content-info"><strong>Full name:</strong> ${
+              this.data.fullName || "-"
+            }</p>
+            <p class="card-extra-info"><strong>Purpose:</strong> ${
+              this.data.purpose || "-"
+            }</p>
+            <p class="card-extra-info"><strong>Description:</strong> ${
+              this.data.description || "-"
+            }</p>
+            <p class="card-extra-info"><strong>Urgency:</strong> ${
+              this.data.urgency || "-"
+            }</p>
+            <p class="card-extra-info"><strong>Status:</strong> ${
+              this.data.status || "open"
+            }</p>
             ${
               this.data.doctor === "cardiologist"
                 ? `
-                <p><strong>Normal pressure:</strong> ${this.data.bp || "-"}</p>
-                <p><strong>Body mass index:</strong> ${this.data.bmi || "-"}</p>
-                <p><strong>Past diseases:</strong> ${
+                <p class="card-extra-info"><strong>Normal pressure:</strong> ${
+                  this.data.bp || "-"
+                }</p>
+                <p class="card-extra-info"><strong>Body mass index:</strong> ${
+                  this.data.bmi || "-"
+                }</p>
+                <p class="card-extra-info"><strong>Past diseases:</strong> ${
                   this.data.diseases || "-"
                 }</p>
             `
